@@ -1,26 +1,14 @@
 import java.util.Random;
 import java.util.Scanner;
 
-
 public class test {
 	public static void main(String[] args) {
-		int i=0;
-		String[] x=new String[26];
 		Random random=new Random();
 		Scanner s=new Scanner(System.in);
-		while (i<26) {
-			x[i]=random.nextInt(100)+","+random.nextInt(100);
-			i++;
-		}
-		System.out.println("ÊäÈëÐ¡Ð´×ÖÄ¸³öËæ»ú×ø±ê£¬ÊäÈëÆäËû¶«Î÷´íÎó");
+		System.out.println("è¾“å…¥æ•°å‡ºéšæœºåæ ‡ï¼Œè¾“å…¥å…¶ä»–ä¸œè¥¿é”™è¯¯");
 		while (true) {
-			String a=s.next();
-			char b=a.charAt(0);
-			if(Integer.valueOf(b)<123||Integer.valueOf(b)>97){
-				System.out.println(x[Integer.valueOf(b)-97]);
-				continue;
-			}
-			break;
+			int a=s.nextInt();
+			System.out.println(random.nextInt(100)+","+random.nextInt(100));
 		}
 	}
 }
