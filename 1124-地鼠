@@ -1,0 +1,91 @@
+import sun.audio.AudioPlayer;
+
+
+import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.*;
+import java.util.Date;
+import java.util.Random;
+
+public class b {
+    private JPanel myJpanel=new JPanel();
+    private JLabel fenshu=new JLabel();
+    private JLabel img=new JLabel();
+    private JLabel shijian=new JLabel();
+    private JLabel bg_img=new JLabel();
+    Random r=new Random();
+
+    ImageIcon j=new ImageIcon("img/1.gif");
+    int i=0;
+    long t=0;
+    Date before=new Date();
+    Date now=new Date();
+    JFrame frame = new JFrame("打地鼠");
+
+
+    public b() {
+        img.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                t=0;
+                before=new Date();
+                i++;
+                a();
+                /*使图片移动*/
+                img.setBounds((int)(Math.random()*10*90),(int)(Math.random()*10*60),100,100);
+                j=new ImageIcon("img/"+r.nextInt(10)+".gif");
+                img.setIcon(j);
+            }
+        });
+    }
+
+    void go(){
+        frame.setContentPane(myJpanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1024,768);
+        frame.setVisible(true);
+        //java.net.URL bg=b.class.getResource("img/bg.jpg");
+        bg_img.setIcon(new ImageIcon("img/bg.jpg"));
+        img.setIcon(j);
+        fenshu.setText("分数："+i);
+        myJpanel.setLayout(null);
+        myJpanel.add(img);
+        img.setBounds((int)(Math.random()*10*90),(int)(Math.random()*10*60),100,100);
+        myJpanel.add(fenshu);
+        fenshu.setBounds(0,0,100,100);
+        myJpanel.add(shijian);
+        shijian.setBounds(100,0,100,100);
+        myJpanel.add(bg_img);
+        bg_img.setBounds(0,10,1024,768);
+        //定时循环
+        while(t<6){
+            now = new Date();
+            //现在的时间减去开始的时间可以计算出来使用的时间
+            t = (now.getTime() - before.getTime())/1000;
+            /*设置时间*/
+            shijian.setText("时间:"+(10-t));
+            /*加分*/
+            fenshu.setText("分数："+i);
+        }
+        JOptionPane.showMessageDialog(null,"时间到,你获得了"+i+"分");
+        frame.dispose();
+    }
+    public static void main(String[] args) {
+        b b=new b();
+        b.go();
+    }
+    /*声音方法*/
+    public static void a(){
+        InputStream inputStream = null;
+        {
+            try {
+                inputStream = new FileInputStream(new File("img/da.wav"));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        AudioPlayer.player.start(inputStream);
+    }
+}
