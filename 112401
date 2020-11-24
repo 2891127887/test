@@ -1,0 +1,43 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+public class app {
+    JPanel myPanel=new JPanel();
+    JTextArea a=new JTextArea();
+    JTextArea b=new JTextArea();
+    //构造方法
+    public app() {
+        a.setBounds(100,100,100,100);
+        a.setBackground(Color.GREEN);
+        myPanel.add(a);
+        a.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if(e.getKeyCode()==KeyEvent.VK_UP){
+                    b.append("你按下了上键");
+                }
+                if(e.getKeyCode()==KeyEvent.VK_ESCAPE){
+                    b.setText("清空");
+                }
+            }
+        });
+        b.setBounds(200,200,100,100);
+        b.setBackground(Color.orange);
+        myPanel.add(b);
+    }
+    //显示窗体方法
+    void go(){
+        JFrame frame = new JFrame("窗体123456");
+        myPanel.setLayout(null);
+        frame.setContentPane(myPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(100,100,512,720);
+        frame.setVisible(true);
+    }
+    public static void main(String[] args) {
+        new app().go();
+    }
+}
