@@ -16,7 +16,7 @@ public class app {
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    if(a.getText().equals("吴升升")){
+                    if(a.getText().equals("张三")){
                         a.setText("");
                         b.setText("正确");
                     }else{
