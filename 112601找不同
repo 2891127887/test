@@ -1,0 +1,55 @@
+import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class app {
+    JPanel myPanel=new JPanel();
+    JLabel label_img=new JLabel();
+    JLabel label_score=new JLabel();
+    int score=0,score1=0,score2=0,score3=0;
+    //构造方法
+    public app() {
+        label_img.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                System.out.println(e.getX()+"|"+e.getY());
+                if(e.getX()>877&&e.getX()<897&&e.getY()>369&&e.getY()<789){
+                    System.out.println("加分");
+                    score1=1;
+                }
+                if(e.getX()>808&&e.getX()<8282&&e.getY()>532&&e.getY()<552){
+                    System.out.println("加分");
+                    score2=1;
+                }
+                if(e.getX()>677&&e.getX()<697&&e.getY()>202&&e.getY()<222){
+                    System.out.println("加分");
+                    score3=1;
+                }
+                score=score1+score2+score3;
+                label_score.setText("得分:"+score);
+
+            }
+        });
+    }
+    //显示窗体方法
+    void go(){
+        JFrame frame = new JFrame("TestGUI");
+        myPanel.setLayout(null);
+        ImageIcon i=new ImageIcon("src/img/grade1.jpg");
+        label_img.setIcon(i);
+        label_img.setBounds(0,0,1024,1024);
+        label_score.setText("得分:0");
+        label_score.setBounds(0,0,100,50);
+        myPanel.add(label_score);
+        myPanel.add(label_img);
+        frame.setContentPane(myPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(100,100,1024,1024);
+        //frame.pack();
+        frame.setVisible(true);
+    }
+    public static void main(String[] args) {
+        new app().go();
+    }
+}
