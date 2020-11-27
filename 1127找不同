@@ -1,0 +1,174 @@
+import sun.audio.AudioPlayer;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.InputStream;
+
+public class app {
+    JPanel myPanel=new JPanel();
+    JLabel label_img=new JLabel();
+    JLabel label_score=new JLabel();
+    JLabel label_level=new JLabel();
+    JLabel label_fen=new JLabel();
+    JLabel label_xy=new JLabel();
+    JLabel label_over=new JLabel();
+    JFrame frame = new JFrame("TestGUI");
+    int score=0,score1=0,score2=0,score3=0;
+    int fen=0;
+    boolean a=true;
+    int level=0;
+    int[] x1={883,1018,589,604,523};
+    int[] y1={165,33,42,330,147};
+    int[] x2={872,696,995,909,797};
+    int[] y2={299,194,247,309,222};
+    int[] x3={676,609,667,659,552};
+    int[] y3={275,334,117,309,457};
+    //构造方法
+    public app() {
+        label_over.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                JOptionPane.showMessageDialog(null,"游戏结束");
+                frame.dispose();
+            }
+        });
+        label_img.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                System.out.println(e.getX()+"|"+e.getY());
+                if(e.getX()>x1[level]-10&&e.getX()<x1[level]+10&&e.getY()>y1[level]-10&&e.getY()<y1[level]+10){
+                    System.out.println("加分");
+                    /*点击不同区域 清除扣分*/
+                    a=false;
+                    /*判断是否已经点击过了*/
+                    if(score1==0){
+                        /*加分*/
+                        fen++;
+                        a();
+                    }
+                    score1=1;
+                }
+                if(e.getX()>x2[level]-10&&e.getX()<x2[level]+10&&e.getY()>y2[level]-10&&e.getY()<y2[level]+10){
+                    System.out.println("加分");
+                    a=false;
+                    if(score2==0){
+                        fen++;
+                        a();
+                    }
+                    score2=1;
+                }
+                if(e.getX()>x3[level]-10&&e.getX()<x3[level]+10&&e.getY()>y3[level]-10&&e.getY()<y3[level]+10){
+                    System.out.println("加分");
+                    a=false;
+                    if(score3==0){
+                        fen++;
+                        a();
+                    }
+                    score3=1;
+                }
+                if(a){
+                    System.out.println("减分");
+                    if(fen!=0){
+                        fen--;
+                    }
+                    b();
+                }else{
+                    /*重置a*/
+                    a=true;
+                }
+                score=score1+score2+score3;
+                label_score.setText("剩余不同:"+(3-score));
+                label_fen.setText("分数:"+fen);
+                label_xy.setText("位置："+e.getX()+","+e.getY());
+                if(score==3){
+                    JOptionPane.showMessageDialog(null,"恭喜通关");
+                    next();
+                }
+            }
+        });
+    }
+    /*下一关方法*/
+    void next(){
+        if( level==4){
+            frame.dispose();
+        }
+        level++;
+        score=0;
+        score1=0;
+        score2=0;
+        score3=0;
+        ImageIcon i=new ImageIcon("src/img/grade"+level+".jpg");
+        label_score.setText("剩余不同:3");
+        label_img.setIcon(i);
+	    label_level.setText("关卡:"+(level+1));
+    }
+
+    //显示窗体方法
+    void go(){
+
+        myPanel.setLayout(null);
+        ImageIcon i=new ImageIcon("src/img/grade"+level+".jpg");
+        label_img.setIcon(i);
+        label_img.setBounds(0,0,1024,521);
+        label_score.setText("剩余不同:3");
+        label_score.setForeground(Color.red);
+        label_score.setBounds(0,0,100,50);
+ 	    label_level.setText("关卡:0");
+        label_level.setForeground(Color.red);
+        label_level.setBounds(0,50,100,50);
+        label_fen.setText("分数:0");
+        label_fen.setForeground(Color.red);
+        label_fen.setBounds(0,70,100,50);
+        label_xy.setText("位置:00，00");
+        label_xy.setForeground(Color.red);
+        label_xy.setBounds(0,90,100,50);
+        label_over.setText("退出游戏");
+        label_over.setForeground(Color.red);
+        label_over.setBounds(960,0,100,50);
+
+        myPanel.add(label_level);
+        myPanel.add(label_score);
+        myPanel.add(label_fen);
+        myPanel.add(label_xy);
+        myPanel.add(label_over);
+        myPanel.add(label_img);
+        frame.setContentPane(myPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(100,100,1050,521);
+        //frame.pack();
+        frame.setVisible(true);
+    }
+    public static void main(String[] args) {
+        new app().go();
+    }
+
+ /*声音方法 正确提示*/
+    public static void a(){
+        InputStream inputStream = null;
+        {
+            try {
+                inputStream =app.class.getResourceAsStream("dui.wav");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        AudioPlayer.player.start(inputStream);
+    }
+    /*声音方法 错误提示*/
+    public static void b(){
+        InputStream inputStream = null;
+        {
+            try {
+                inputStream =app.class.getResourceAsStream("cou.wav");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        AudioPlayer.player.start(inputStream);
+    }
+
+}
