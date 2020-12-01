@@ -1,0 +1,108 @@
+import javax.swing.*;
+import java.applet.Applet;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.Random;
+
+public class a {
+    JPanel myPanel=new JPanel();
+    JLabel a=new JLabel();
+    JLabel b=new JLabel();
+    JLabel c=new JLabel();
+    JLabel fen=new JLabel();
+    Random r=new Random();
+
+    JFrame frame = new JFrame("窗体123456");
+    int x=0,y=0,width=64,height=64;
+    int row=0,col=0;
+    int i=0;
+    //构造方法
+    public a() {
+        myPanel.setLayout(null);
+        a.setBounds(x,y,width,height);
+        a.setIcon(new ImageIcon("src/ball.gif"));
+        myPanel.add(a);
+
+        fen.setBounds(50,50,100,100);
+        fen.setText("当前分数：0");
+        myPanel.add(fen);
+
+        row=r.nextInt(16)*64;
+        col=r.nextInt(12)*64;
+        c.setIcon(new ImageIcon("src/basket.jpg"));
+        c.setBounds(row,col,64,64);
+        myPanel.add(c);
+
+        b.setBounds(0,0,1024,768);
+        b.setIcon(new ImageIcon("src/bg.png"));
+        myPanel.add(b);
+
+
+        frame.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                /*判断是否按下回车*/
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    /*判断图片是否重叠*/
+                    if(y==col&&x==row){
+                        System.out.printf("进球");
+                        row=r.nextInt(16)*64;
+                        col=r.nextInt(13)*64;
+                        c.setBounds(row,col,64,64);
+                        i++;
+                        fen.setText("当前分数："+i);
+                    }
+                }
+                if(e.getKeyCode()==KeyEvent.VK_DOWN){
+                    System.out.println(y);
+                    //判断是否到边界
+                    if(y<=640){
+                        y=y+height;
+                        a.setBounds(x,y,width,height);
+                    }
+                }
+                if(e.getKeyCode()==KeyEvent.VK_UP){
+                    System.out.println(y);
+                    //判断是否到边界
+                    if(y>0){
+                        y=y-height;
+                        a.setBounds(x,y,width,height);
+                    }
+
+                }
+                if(e.getKeyCode()==KeyEvent.VK_LEFT){
+                    System.out.println(x);
+                    //判断是否到边界
+                    if(x>0){
+                        x=x-width;
+                        a.setBounds(x,y,width,height);
+                    }
+                }
+                if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+
+                    System.out.println(x);
+                    //判断是否到边界
+                    if(x<=896){
+                        x=x+width;
+                        a.setBounds(x,y,width,height);
+                    }
+                }
+            }
+        });
+
+    }
+    //显示窗体方法
+    void go(){
+
+        myPanel.setLayout(null);
+        frame.setContentPane(myPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(100,100,1024,800);
+        frame.setVisible(true);
+    }
+    public static void main(String[] args) {
+        new a().go();
+    }
+}
