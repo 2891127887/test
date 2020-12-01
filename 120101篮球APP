@@ -49,7 +49,7 @@ public class a {
                     if(y==col&&x==row){
                         System.out.printf("进球");
                         row=r.nextInt(16)*64;
-                        col=r.nextInt(13)*64;
+                        col=r.nextInt(12)*64;
                         c.setBounds(row,col,64,64);
                         i++;
                         fen.setText("当前分数："+i);
