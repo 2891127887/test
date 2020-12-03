@@ -1,0 +1,99 @@
+import javax.swing.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+public class a {
+
+    JPanel myJpanel=new JPanel();
+    JLabel label_frog=new JLabel();
+    JLabel label_background=new JLabel();
+    JLabel label_score=new JLabel();
+    JTextArea textArea_UserInput=new JTextArea();
+    int i=0;
+
+    public a() {
+        myJpanel.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                textArea_UserInput.append(String.valueOf(e.getKeyChar()));
+                if (textArea_UserInput.getText().equals("hello")){
+                    System.out.println("到第一步");
+                    label_frog.setBounds(356,256,128,128);
+                    i++;
+                }
+                if(i==1){
+                    if (textArea_UserInput.getText().equals("world")){
+                        System.out.println("到第二步");
+                        label_frog.setBounds(256,126,128,128);
+                        i++;
+                    }
+                }
+                if(i==2){
+                    if (textArea_UserInput.getText().equals("hi")){
+                        System.out.println("到第三步");
+                        label_frog.setBounds(600,40,128,128);
+                        i++;
+                    }
+                }
+                if(i==3){
+                    System.out.println("换蛙");
+                    label_frog.setBounds(0,440,128,128);
+                    i=0;
+                }
+            }
+        });
+        /*按下回车清空*/
+        myJpanel.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    textArea_UserInput.setText("");
+                }
+            }
+        });
+    }
+
+    void go(){
+
+        textArea_UserInput.setText("");
+        textArea_UserInput.setBounds(0,0,300,50);
+        myJpanel.add(textArea_UserInput);
+
+        java.net.URL imgURL2 = a.class.getResource("frog.png");
+        label_frog.setIcon(new ImageIcon(imgURL2));
+        label_frog.setBounds(0,440,128,128);
+        myJpanel.add(label_frog);
+
+        label_score.setText("得分：0");
+        label_score.setBounds(400,0,200,50);
+        myJpanel.add(label_score);
+
+        java.net.URL imgURL = a.class.getResource("background.png");
+        label_background.setIcon(new ImageIcon(imgURL));
+        label_background.setBounds(0,0,1024,600);
+        myJpanel.add(label_background);
+
+
+
+
+
+        JFrame frame = new JFrame("a");
+        myJpanel.setLayout(null);
+        frame.setContentPane(myJpanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1024,600);
+        //frame.pack();
+        frame.setVisible(true);
+        myJpanel.setFocusable(true);
+
+
+
+
+    }
+
+    public static void main(String[] args) {
+        new a().go();
+    }
+}
