@@ -59,6 +59,7 @@ public class a {
 
         textArea_UserInput.setText("");
         textArea_UserInput.setBounds(0,0,300,50);
+        textArea_UserInput.setVisible(false);
         myJpanel.add(textArea_UserInput);
 
         java.net.URL imgURL2 = a.class.getResource("frog.png");
