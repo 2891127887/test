@@ -12,6 +12,10 @@ public class a {
     JLabel label_frog3=new JLabel();
     JLabel label_background=new JLabel();
     JLabel label_score=new JLabel();
+    JLabel label_text1=new JLabel();
+    JLabel label_text2=new JLabel();
+    JLabel label_text3=new JLabel();
+
     JTextArea textArea_UserInput=new JTextArea();
     int i=0;
     int j=0;
@@ -33,7 +37,6 @@ public class a {
                 textArea_UserInput.append(String.valueOf(e.getKeyChar()));
                 if(i==0){
                     if (textArea_UserInput.getText().equals(text[level][0])){
-                        System.out.println("到第一步");
                         switch (j) {
                             case 0 :
                                 label_frog.setBounds(356,256,128,128);
@@ -59,7 +62,6 @@ public class a {
                 }
                 if(i==1){
                     if (textArea_UserInput.getText().equals(text[level][1])){
-                        System.out.println("到第二步");
                         switch (j) {
                             case 0 :
                                 label_frog.setBounds(256,126,128,128);
@@ -85,7 +87,6 @@ public class a {
                 }
                 if(i==2){
                     if (textArea_UserInput.getText().equals(text[level][2])){
-                        System.out.println("到第三步");
                         switch (j) {
                             case 0 :
                                 label_frog.setBounds(600,40,128,128);
@@ -111,19 +112,22 @@ public class a {
                 }
                 /*换蛙*/
                 if(i==3){
-                    System.out.println("换蛙");
                     i=0;
                     j++;
+                    /*换关*/
                     if(j==3){
                         level=r.nextInt(5);
                         j=0;
                         i=0;
-                        System.out.println("换关");
+                        /*青蛙归位*/
                         label_frog.setBounds(0,440,128,128);
                         label_frog2.setBounds(200,440,128,128);
                         label_frog3.setBounds(400,440,128,128);
-                        java.net.URL imgURLx = a.class.getResource("background"+level+".png");
-                        label_background.setIcon(new ImageIcon(imgURLx));
+                        /*换字*/
+                        label_text1.setText(text[level][0]);
+                        label_text2.setText(text[level][1]);
+                        label_text3.setText(text[level][2]);
+
                     }
                 }
 
@@ -135,7 +139,6 @@ public class a {
                 super.keyReleased(e);
                 /*按下回车清空*/
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    System.out.println("清空");
                     textArea_UserInput.setText("");
                 }
             }
@@ -170,13 +173,27 @@ public class a {
         label_score.setBounds(400,0,200,50);
         myJpanel.add(label_score);
 
-        java.net.URL imgURL = a.class.getResource("background.png");
+        label_text1.setText("hello");
+        label_text1.setBounds(406,306,300,100);
+        label_text1.setFont(new Font("微软雅黑",1,30));
+        myJpanel.add(label_text1);
+
+        label_text2.setText("world");
+        label_text2.setBounds(256,130,300,100);
+        label_text2.setFont(new Font("微软雅黑",1,30));
+        myJpanel.add(label_text2);
+
+        label_text3.setText("hi");
+        label_text3.setBounds(666,56,300,100);
+        label_text3.setFont(new Font("微软雅黑",1,30));
+        myJpanel.add(label_text3);
+
+        java.net.URL imgURL = a.class.getResource("bg.png");
         label_background.setIcon(new ImageIcon(imgURL));
         label_background.setBounds(0,0,1024,600);
         myJpanel.add(label_background);
 
 
-        
         JFrame frame = new JFrame("a");
         myJpanel.setLayout(null);
         frame.setContentPane(myJpanel);
@@ -185,9 +202,9 @@ public class a {
         //frame.pack();
         frame.setVisible(true);
         myJpanel.setFocusable(true);
+        JOptionPane.showMessageDialog(null,"按回车重新输入");
 
 
-        
     }
 
     public static void main(String[] args) {
