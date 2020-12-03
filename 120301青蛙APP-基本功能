@@ -1,54 +1,141 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Random;
 
 public class a {
 
     JPanel myJpanel=new JPanel();
     JLabel label_frog=new JLabel();
+    JLabel label_frog2=new JLabel();
+    JLabel label_frog3=new JLabel();
     JLabel label_background=new JLabel();
     JLabel label_score=new JLabel();
     JTextArea textArea_UserInput=new JTextArea();
     int i=0;
-
+    int j=0;
+    int fen=0;
+    int level=0;
+    Random r=new Random();
+    String text[][]={
+            {"hello","world","hi"},
+            {"morning","afternoon","night"},
+            {"tomy","jery","uncle"},
+            {"abc","def","ghi"},
+            {"345","678","123"}
+    } ;
     public a() {
         myJpanel.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
                 textArea_UserInput.append(String.valueOf(e.getKeyChar()));
-                if (textArea_UserInput.getText().equals("hello")){
-                    System.out.println("到第一步");
-                    label_frog.setBounds(356,256,128,128);
-                    i++;
+                if(i==0){
+                    if (textArea_UserInput.getText().equals(text[level][0])){
+                        System.out.println("到第一步");
+                        switch (j) {
+                            case 0 :
+                                label_frog.setBounds(356,256,128,128);
+                                fen++;
+                                label_score.setText("得分："+fen);
+                                textArea_UserInput.setText("");
+                                break;
+                            case 1 :
+                                label_frog2.setBounds(356,256,128,128);
+                                fen++;
+                                label_score.setText("得分："+fen);
+                                textArea_UserInput.setText("");
+                                break;
+                            case 2:
+                                label_frog3.setBounds(356,256,128,128);
+                                fen++;
+                                label_score.setText("得分："+fen);
+                                textArea_UserInput.setText("");
+                                break;
+                        }
+                        i++;
+                    }
                 }
                 if(i==1){
-                    if (textArea_UserInput.getText().equals("world")){
+                    if (textArea_UserInput.getText().equals(text[level][1])){
                         System.out.println("到第二步");
-                        label_frog.setBounds(256,126,128,128);
+                        switch (j) {
+                            case 0 :
+                                label_frog.setBounds(256,126,128,128);
+                                fen++;
+                                label_score.setText("得分："+fen);
+                                textArea_UserInput.setText("");
+                                break;
+                            case 1 :
+                                label_frog2.setBounds(256,126,128,128);
+                                fen++;
+                                label_score.setText("得分："+fen);
+                                textArea_UserInput.setText("");
+                                break;
+                            case 2:
+                                label_frog3.setBounds(256,126,128,128);
+                                fen++;
+                                label_score.setText("得分："+fen);
+                                textArea_UserInput.setText("");
+                                break;
+                        }
                         i++;
                     }
                 }
                 if(i==2){
-                    if (textArea_UserInput.getText().equals("hi")){
+                    if (textArea_UserInput.getText().equals(text[level][2])){
                         System.out.println("到第三步");
-                        label_frog.setBounds(600,40,128,128);
+                        switch (j) {
+                            case 0 :
+                                label_frog.setBounds(600,40,128,128);
+                                fen++;
+                                label_score.setText("得分："+fen);
+                                textArea_UserInput.setText("");
+                                break;
+                            case 1 :
+                                label_frog2.setBounds(650,40,128,128);
+                                fen++;
+                                label_score.setText("得分："+fen);
+                                textArea_UserInput.setText("");
+                                break;
+                            case 2:
+                                label_frog3.setBounds(700,40,128,128);
+                                fen++;
+                                label_score.setText("得分："+fen);
+                                textArea_UserInput.setText("");
+                                break;
+                        }
                         i++;
                     }
                 }
+                /*换蛙*/
                 if(i==3){
                     System.out.println("换蛙");
-                    label_frog.setBounds(0,440,128,128);
                     i=0;
+                    j++;
+                    if(j==3){
+                        level=r.nextInt(5);
+                        j=0;
+                        i=0;
+                        System.out.println("换关");
+                        label_frog.setBounds(0,440,128,128);
+                        label_frog2.setBounds(200,440,128,128);
+                        label_frog3.setBounds(400,440,128,128);
+                        java.net.URL imgURLx = a.class.getResource("background"+level+".png");
+                        label_background.setIcon(new ImageIcon(imgURLx));
+                    }
                 }
+
             }
         });
-        /*按下回车清空*/
         myJpanel.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
+            public void keyReleased(KeyEvent e) {
+                super.keyReleased(e);
+                /*按下回车清空*/
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    System.out.println("清空");
                     textArea_UserInput.setText("");
                 }
             }
@@ -67,7 +154,19 @@ public class a {
         label_frog.setBounds(0,440,128,128);
         myJpanel.add(label_frog);
 
+        java.net.URL imgURL3 = a.class.getResource("frog.png");
+        label_frog2.setIcon(new ImageIcon(imgURL3));
+        label_frog2.setBounds(200,440,128,128);
+        myJpanel.add(label_frog2);
+
+        java.net.URL imgURL4 = a.class.getResource("frog.png");
+        label_frog3.setIcon(new ImageIcon(imgURL4));
+        label_frog3.setBounds(400,440,128,128);
+        myJpanel.add(label_frog3);
+
         label_score.setText("得分：0");
+        label_score.setForeground(Color.magenta);
+        label_score.setFont(new Font("微软雅黑",1,20));
         label_score.setBounds(400,0,200,50);
         myJpanel.add(label_score);
 
@@ -77,9 +176,7 @@ public class a {
         myJpanel.add(label_background);
 
 
-
-
-
+        
         JFrame frame = new JFrame("a");
         myJpanel.setLayout(null);
         frame.setContentPane(myJpanel);
@@ -90,8 +187,7 @@ public class a {
         myJpanel.setFocusable(true);
 
 
-
-
+        
     }
 
     public static void main(String[] args) {
