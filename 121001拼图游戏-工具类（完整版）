@@ -7,6 +7,7 @@ public class Zero {
 //                    0在左边界
                     if(column==0){
 
+
                     }
 //                   非左边界
                     else{
