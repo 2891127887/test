@@ -10,20 +10,37 @@ public class a {
     JFrame frame = new JFrame("一个小程序");
     int cell=128;
     static int[][] map2d={
-            {1,2,3},
-            {4,5,6},
-            {7,8,9},
-            {10,11,0}
+            {4,11,3},
+            {1,5,6},
+            {8,7,9},
+            {10,2,0}
     };
+
+    //判断是否赢
+    public void win(int array2d[][]){
+        int w=0;
+        for (int K = 0; K < array2d.length; K++) {
+            for (int L = 0; L < array2d[0].length; L++) {
+                if(array2d[K][L]==((K*3)+L)+1){
+                    w++;
+                }
+            }
+        }
+        if(w==11){
+            JOptionPane.showMessageDialog(null,"恭喜通关");
+            frame.dispose();
+        }
+    }
     //构造方法
     public a() {
         //根据数组添加标签
         for (int row = 0; row < map2d.length; row++) {
             for (int column = 0; column < map2d[0].length; column++) {
                 list.add(new JLabel());
-                //java.net.URL imgURL = App.class.getResource("img/nezha_"+String.valueOf(map[row][column])+".png");
-                /*把文字改成图片*/
-                list.get(row*3+column).setText(map2d[row][column]+"个标签");
+                java.net.URL imgURL = a.class.getResource("nezha_"+(map2d[row][column])+".png");
+                list.get(row*3+column).setIcon(new ImageIcon(imgURL));
+
+
                 list.get(row*3+column).setBounds(column*cell,row*cell,cell,cell);
                 myPanel.add(list.get(row*3+column));
             }
@@ -49,12 +66,13 @@ public class a {
                     for (int row = 0; row < map2d.length; row++) {
                         for (int column = 0; column < map2d[0].length; column++) {
                             list.add(new JLabel());
-                            //java.net.URL imgURL = App.class.getResource("img/nezha_"+String.valueOf(map[row][column])+".png");
-                            list.get(row*3+column).setText(map2d[row][column]+"个标签");
+                            java.net.URL imgURL = a.class.getResource("nezha_"+(map2d[row][column])+".png");
+                            list.get(row*3+column).setIcon(new ImageIcon(imgURL));
                             list.get(row*3+column).setBounds(column*cell,row*cell,cell,cell);
                             myPanel.add(list.get(row*3+column));
                         }
                     }
+                    win(map2d);
                 }
                 /*按下S(大写)*/
                 if(e.getKeyChar()==KeyEvent.VK_S){
@@ -65,12 +83,13 @@ public class a {
                     for (int row = 0; row < map2d.length; row++) {
                         for (int column = 0; column < map2d[0].length; column++) {
                             list.add(new JLabel());
-                            //java.net.URL imgURL = App.class.getResource("img/nezha_"+String.valueOf(map[row][column])+".png");
-                            list.get(row*3+column).setText(map2d[row][column]+"个标签");
+                            java.net.URL imgURL = a.class.getResource("nezha_"+(map2d[row][column])+".png");
+                            list.get(row*3+column).setIcon(new ImageIcon(imgURL));
                             list.get(row*3+column).setBounds(column*cell,row*cell,cell,cell);
                             myPanel.add(list.get(row*3+column));
                         }
                     }
+                    win(map2d);
                 }
                 /*按下A(大写)*/
                 if(e.getKeyChar()==KeyEvent.VK_A){
@@ -81,12 +100,13 @@ public class a {
                     for (int row = 0; row < map2d.length; row++) {
                         for (int column = 0; column < map2d[0].length; column++) {
                             list.add(new JLabel());
-                            //java.net.URL imgURL = App.class.getResource("img/nezha_"+String.valueOf(map[row][column])+".png");
-                            list.get(row*3+column).setText(map2d[row][column]+"个标签");
+                            java.net.URL imgURL = a.class.getResource("nezha_"+(map2d[row][column])+".png");
+                            list.get(row*3+column).setIcon(new ImageIcon(imgURL));
                             list.get(row*3+column).setBounds(column*cell,row*cell,cell,cell);
                             myPanel.add(list.get(row*3+column));
                         }
                     }
+                    win(map2d);
                 }
                 /*按下D(大写)*/
                 if(e.getKeyChar()==KeyEvent.VK_D){
@@ -96,13 +116,13 @@ public class a {
                     for (int row = 0; row < map2d.length; row++) {
                         for (int column = 0; column < map2d[0].length; column++) {
                             list.add(new JLabel());
-                            //java.net.URL imgURL = App.class.getResource("img/nezha_"+String.valueOf(map[row][column])+".png");
-                            list.get(row*3+column).setText(map2d[row][column]+"个标签");
+                            java.net.URL imgURL = a.class.getResource("nezha_"+(map2d[row][column])+".png");
+                            list.get(row*3+column).setIcon(new ImageIcon(imgURL));
                             list.get(row*3+column).setBounds(column*cell,row*cell,cell,cell);
                             myPanel.add(list.get(row*3+column));
                         }
                     }
-
+                    win(map2d);
                 }
             }
         });
@@ -119,4 +139,6 @@ public class a {
     public static void main(String[] args) {
         new a().go();
     }
+
+
 }
